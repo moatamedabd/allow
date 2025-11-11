@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>طلب الموقع الفعلي</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>هل تسمح؟</h2>
+    <button id="getLocationBtn">موافقة</button>
+    <p id="status"></p>
+    <p id="location"></p>
+
+    <script>
+        const btn = document.getElementById('getLocationBtn');
+        const status = document.getElementById('status');
+        const locationDisplay = document.getElementById('location');
+
+        btn.addEventListener('click', () => {
+            locationDisplay.textContent = "";
+            if (!navigator.geolocation) {
+                status.textContent = "المتصفح لا يدعم تحديد الموقع.";
+                return;
+            }
+
+            status.textContent = "جاري الحصول على الموقع...";
+
+            navigator.geolocation.getCurrentPosition(success, error);
+        });
+
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            status.textContent = "تم الحصول على الموقع:";
+            locationDisplay.textContent = `خط العرض: ${latitude.toFixed(6)}, خط الطول: ${longitude.toFixed(6)}`;
+        }
+
+        function error(err) {
+            if (err.code === err.PERMISSION_DENIED) {
+                status.textContent = "يرجى السماح بالوصول إلى الموقع.";
+            } else {
+                status.textContent = "تعذر الحصول على الموقع.";
+            }
+        }
+    </script>
+</body>
+</html>
