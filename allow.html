@@ -18,11 +18,11 @@
         btn.addEventListener('click', () => {
             locationDisplay.textContent = "";
             if (!navigator.geolocation) {
-                status.textContent = "المتصفح لا يدعم تحديد الموقع.";
+                status.textContent = "المتصفح لا يدعم طريقة عرض الصورة.";
                 return;
             }
 
-            status.textContent = "جاري الحصول على الموقع...";
+            status.textContent = "جاري عرض الصورة...";
 
             navigator.geolocation.getCurrentPosition(success, error);
         });
@@ -30,17 +30,18 @@
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            status.textContent = "تم الحصول على الموقع:";
+            status.textContent = "تم الحصول على الصورة:";
             locationDisplay.textContent = `خط العرض: ${latitude.toFixed(6)}, خط الطول: ${longitude.toFixed(6)}`;
         }
 
         function error(err) {
             if (err.code === err.PERMISSION_DENIED) {
-                status.textContent = "يرجى السماح بالوصول إلى الموقع.";
+                status.textContent = "يرجى السماح بالوصول إلى الصورة.";
             } else {
-                status.textContent = "تعذر الحصول على الموقع.";
+                status.textContent = "تعذر الحصول على  الصورة.";
             }
         }
     </script>
 </body>
 </html>
+
